@@ -1,4 +1,4 @@
-"""
+/*
 Một vài cải tiến so với mục 7. là:
 - Sau khi chạy Luyện Kim Mô Phỏng cho ra một kết quả tốt, chạy thêm một lần Tìm Kiếm Cục Bộ để đảm bảo có được kết quả ổn nhất
 - Dùng timestamp-based reset để tiết kiệm memset
@@ -8,7 +8,7 @@ Một vài cải tiến so với mục 7. là:
 => Tạo điều kiện để nới rộng khoảng của Luyện Kim Mô Phỏng (Tmin 0.01 -> 0.000001 và alpha 0.999 -> 0.999999) mà không bị giới hạn thời gian
 
 Điểm: 91 94 90 100 100
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

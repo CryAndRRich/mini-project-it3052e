@@ -1,9 +1,9 @@
-"""
+/*
 Thay vì xét thứ tự từ 1 đến N thì sắp xếp trước các lớp theo sĩ số lớp và số lớp mà lớp đó không thể thi chung một khung thời gian (số lớp mâu thuẫn)
 Ý tưởng chính là vì các lớp sĩ số lớn và số lớp mâu thuẫn lớn sẽ khó xếp hơn nên sẽ ưu tiên xếp trước
 
 Điểm: 100 90 100 66 60
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

@@ -1,10 +1,10 @@
-"""
+/*
 Khởi tạo 1000 hoán vị khác nhau của N lớp một cách ngẫu nhiên, với mỗi cách hoán vị:
 - Sử dụng thuật toán Tham Lam để tạo ra 1 cách sắp xếp phòng thi chấp nhận được
 - Sử dụng thuật toán Tìm Kiếm Cục Bộ di chuyển lớp về khung thời gian thi nhỏ hơn đến khi không thể nữa
 
 Điểm: 100 93 100 100 62
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

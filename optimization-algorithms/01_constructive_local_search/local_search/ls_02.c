@@ -1,4 +1,4 @@
-"""
+/*
 Thuật toán tương tự nhưng cải tiến so với mục 3. gồm các phần:
 - Giảm không gian tìm kiếm, sử dụng limit động, thay vì luôn duyệt MAX_SLOT = 4*N thì duyệt đến số khung thi hiện có
 - Dùng bitset cho xung đột các lớp không thi cùng một khung thời gian và lưu trữ khung thời gian
@@ -6,7 +6,7 @@ Thuật toán tương tự nhưng cải tiến so với mục 3. gồm các ph�
 => Thời gian xử lý từ O(N) xuống O(N/64), từ N xấp xỉ 1000 xuống N/64 xấp xỉ 16
 
 Điểm: 99 93 97 100 60
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

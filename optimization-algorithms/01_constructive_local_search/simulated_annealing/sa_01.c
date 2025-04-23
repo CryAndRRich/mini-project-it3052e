@@ -1,4 +1,4 @@
-"""
+/*
 Khác với Tìm Kiếm Cục Bộ, cơ chế “chấp nhận cả bước xấu” với xác suất giảm theo nhiệt độ,
 Luyện Kim Mô Phỏng giúp thoát khỏi cực tiểu cục bộ và tìm được lời giải tốt hơn
 
@@ -6,7 +6,7 @@ Tuy nhiên để có được kết quả tốt, Luyện Kim Mô Phỏng cần c
 lâu kể cả khi đã dùng kết hợp với bitset
 
 Điểm: 60 69 65 100 71
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

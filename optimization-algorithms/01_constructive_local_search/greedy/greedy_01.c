@@ -1,8 +1,8 @@
-"""
+/*
 Xét theo thứ tự các lớp từ 1 đến N, mỗi lần xét gán cho lớp i phòng thi nhỏ nhất có sức chứa lớn hơn sĩ số lớp và slot nhỏ nhất đáp ứng các điều kiện
 
 Điểm: 100 93 96 100 60
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

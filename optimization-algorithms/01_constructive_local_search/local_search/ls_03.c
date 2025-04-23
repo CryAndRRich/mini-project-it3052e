@@ -1,10 +1,10 @@
-"""
+/*
 Việc gán phòng và khung thời gian thi một cách ngẫu nhiên làm tăng khả năng tìm được lời giải tốt toàn cục trong các bài toán lớn
 nhưng thời gian lại chậm hơn so với việc sắp xếp bằng Tham Lam trong các bài toán quy mô vừa và nhỏ
 => Kết hợp cả hai cách sắp xếp, với mỗi 1000 hoán vị thứ tự ngẫu nhiên của N lớp, chọn ngẫu nhiên 1 cách sắp xếp
 
 Điểm: 100 97 100 100 62
-"""
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

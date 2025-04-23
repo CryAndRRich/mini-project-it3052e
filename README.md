@@ -2,60 +2,60 @@
 ```
 optimization-algorithms/
 ├── 01_constructive_local_search/
-│   ├── greedy/                        # Greedy construction
-│   │   └── greedy.py
-│   ├── local_search/                  # Simple neighborhood search
-│   │   └── local_search.py
-│   ├── simulated_annealing/           # SA: probabilistic hill-climbing
-│   │   └── simulated_annealing.py
-│   ├── tabu_search/                   # Memory-based local search
-│   │   └── tabu_search.py
-│   ├── variable_neighborhood_search/  # VNS: dynamic neighborhoods
-│   │   └── vns.py
-│   ├── iterated_local_search/         # ILS: perturb-and-restart
-│   │   └── iterated_local_search.py
-│   └── grasp/                         # GRASP: randomized greedy + LS
-│       └── grasp.py
+│   ├── greedy/                        # GA: Greedy construction
+│   │   ├── greedy_01.c
+│   │   ├── greedy_02.c
+│   │   └── greedy_03.c
+│   ├── local_search/                  
+│   │   ├── ls_01.c                    # LS: Simple neighborhood search
+│   │   ├── ls_02.c
+│   │   ├── ls_03.c
+│   │   └── ils.c                      # ILS (Iterated Local Search): Perturb and Restart
+│   ├── simulated_annealing/           # SA: Probabilistic hill-climbing
+│   │   ├── sa_01.c
+│   │   └── sa_02.c
+│   ├── tabu_search/                   # TS: Memory-based local search
+│   │   └── ts.c
 │
 ├── 02_evolutionary_population_based/
 │   ├── genetic_algorithm/             # GA: selection+crossover+mutation
-│   │   └── genetic_algorithm.py
+│   │   └── genetic_algorithm.c
 │   ├── differential_evolution/        # DE: mutation by vector differences
-│   │   └── differential_evolution.py
+│   │   └── differential_evolution.c
 │   ├── cma_es/                        # CMA-ES: covariance adaptation ES
-│   │   └── cma_es.py
+│   │   └── cma_es.c
 │   ├── estimation_of_distribution/    # EDA: learn & sample probability models
-│   │   └── eda_umda.py
+│   │   └── eda_umda.c
 │   └── memetic_algorithm/             # Hybrid GA + local search
-│       └── memetic_algorithm.py
+│       └── memetic_algorithm.c
 │
 ├── 03_swarm_intelligence/
 │   ├── particle_swarm_optimization/   # PSO: velocity-position updates
-│   │   └── pso.py
+│   │   └── pso.c
 │   ├── ant_colony_optimization/       # ACO: pheromone-guided tours
-│   │   └── ant_colony.py
+│   │   └── ant_colony.c
 │   ├── artificial_bee_colony/         # ABC: employed/onlooker/scout bees
-│   │   └── abc.py
+│   │   └── abc.c
 │   ├── cuckoo_search/                 # CS: Lévy flights + brood parasitism
-│   │   └── cuckoo_search.py
+│   │   └── cuckoo_search.c
 │   ├── firefly_algorithm/             # FA: attractiveness-based moves
-│   │   └── firefly.py
+│   │   └── firefly.c
 │   └── bat_algorithm/                 # Bat: echolocation-inspired search
-│       └── bat.py
+│       └── bat.c
 │
 ├── 04_probabilistic_and_tree_search/
-│   ├── cross_entropy_method/          # CE: iterative distribution refitting
-│   │   └── cross_entropy.py
+│   ├── cross_entroc_method/          # CE: iterative distribution refitting
+│   │   └── cross_entroc.c
 │   └── monte_carlo_tree_search/       # MCTS: tree + simulation
-│       └── mcts.py
+│       └── mcts.c
 │
 └── 05_specialized_and_hybrid/
     ├── harmony_search/                # HS: music-inspired pitch adjustment
-    │   └── harmony_search.py
+    │   └── harmony_search.c
     ├── bacterial_foraging/            # BFO: chemotaxis + reproduction
-    │   └── bacterial_foraging.py
+    │   └── bacterial_foraging.c
     ├── artificial_immune_system/       # AIS: immune-inspired algorithms
-    │   └── ais.py
+    │   └── ais.c
     └── beam_search/                   # Beam: k-best breadth-first search
-        └── beam_search.py
+        └── beam_search.c
 ```

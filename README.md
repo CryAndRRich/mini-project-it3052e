@@ -33,7 +33,7 @@ optimization-algorithms/
 │   ├── particle_swarm_optimization/   # PSO: velocity-position updates
 │   │   └── pso.c
 │   ├── ant_colony_optimization/       # ACO: pheromone-guided tours
-│   │   └── ant_colony.c
+│   │   └── aco.c
 │   ├── artificial_bee_colony/         # ABC: employed/onlooker/scout bees
 │   │   └── abc.c
 │   ├── cuckoo_search/                 # CS: Lévy flights + brood parasitism
@@ -44,18 +44,19 @@ optimization-algorithms/
 │       └── bat.c
 │
 ├── 04_probabilistic_and_tree_search/
-│   ├── cross_entroc_method/          # CE: iterative distribution refitting
+│   ├── cross_entroc_method/           # CE: iterative distribution refitting
 │   │   └── cross_entroc.c
 │   └── monte_carlo_tree_search/       # MCTS: tree + simulation
 │       └── mcts.c
 │
 └── 05_specialized_and_hybrid/
     ├── harmony_search/                # HS: music-inspired pitch adjustment
-    │   └── harmony_search.c
+    │   └── hs.c
     ├── bacterial_foraging/            # BFO: chemotaxis + reproduction
     │   └── bacterial_foraging.c
-    ├── artificial_immune_system/       # AIS: immune-inspired algorithms
+    ├── clonal_selection_algorithm/    # CSA: immune-inspired algorithms
     │   └── ais.c
-    └── beam_search/                   # Beam: k-best breadth-first search
-        └── beam_search.c
+    └── beam_search/                   # BS: k-best breadth-first search
+        ├── bs_01.c
+        └── bs_02.c
 ```

@@ -1,10 +1,8 @@
-/*
-Thuật toán kiến
-
-Điểm: TLE 93 TLE 100 60
-*/
+//C 
+//C 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <math.h>
 #include <limits.h>
 
@@ -12,53 +10,62 @@ Thuật toán kiến
 #define Max_M 1000
 #define Max_K 100
 #define Max_Slot (4 * Max_N)
-#define Max_ants 20
+#define Max_ants 10
 #define Max_loops 100
 
 int N, M, K;
 int d[Max_N];
 int c[Max_M];
-bool conflict[Max_N][Max_N];
+
+
+#define BIT_WORDS ((Max_N + 63) / 64)
+static uint64_t conflictBits[Max_N][BIT_WORDS];
+
 
 double alpha = 1.0;
-double beta = 2.0;
-double rho = 0.1;
-double Q = 500.0;
+double beta  = 2.0;
+double rho   = 0.1;
+double Q     = 500.0;
 
 double pheromone[Max_N][Max_Slot];
 int solSlot[Max_ants][Max_N];
 int solRoom[Max_ants][Max_N];
 int costAnt[Max_ants];
 
-double bestPheromone;
 int bestSlot[Max_N];
 int bestRoom[Max_N];
 int bestCost;
 
+static inline bool isConflict(int i, int j) {
+    return (conflictBits[i][j >> 6] >> (j & 63)) & 1;
+}
 
-bool UsedRoom[Max_M][Max_Slot];
+static inline void setConflict(int i, int j) {
+    conflictBits[i][j >> 6] |= 1ULL << (j & 63);
+}
 
-int CostCompute(int slotAssign[]) {
+static inline int CostCompute(int slotAssign[]) {
     int cost = 0;
     for (int i = 0; i < N - 1; i++) {
         for (int j = i + 1; j < N; j++) {
-            if (slotAssign[i] == slotAssign[j] && conflict[i][j]) cost++;
+            if (slotAssign[i] == slotAssign[j] && isConflict(i, j)) cost++;
         }
     }
     return cost;
 }
 
-void pheromone_init(double first) {
+static inline void pheromone_init(double first) {
     for (int i = 0; i < N; i++) {
-        for (int s = 0; s < N; s++) pheromone[i][s] = first;
+        for (int s = 0; s < N; s++) {
+            pheromone[i][s] = first;
+        }
     }
 }
 
 void Solution(int k) {
+    static bool UsedRoom[Max_M][Max_N];
     for (int r = 0; r < M; r++) {
-        for (int s = 0; s < N; s++) {
-            UsedRoom[r][s] = false;
-        }
+        for (int s = 0; s < N; s++) UsedRoom[r][s] = false;
     }
     for (int i = 0; i < N; i++) {
         int chosenSlot = 0;
@@ -71,7 +78,7 @@ void Solution(int k) {
             if (!hasRoom) continue;
             int confCount = 0;
             for (int j = 0; j < i; j++) {
-                if (solSlot[k][j] == s + 1 && conflict[i][j]) confCount++;
+                if (solSlot[k][j] == s + 1 && isConflict(i, j)) confCount++;
             }
             double eta = 1.0 / (1 + confCount);
             double value = pow(pheromone[i][s], alpha) * pow(eta, beta);
@@ -126,7 +133,8 @@ int main() {
     for (int k = 0; k < K; k++) {
         int u, v;
         scanf("%d %d", &u, &v);
-        conflict[u-1][v-1] = conflict[v-1][u-1] = true;
+        setConflict(u-1, v-1);
+        setConflict(v-1, u-1);
     }
     ACO();
     return 0;

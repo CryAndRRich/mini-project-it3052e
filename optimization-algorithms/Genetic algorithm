@@ -1,0 +1,164 @@
+#include <stdio.h>
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define Max_N    1000
+#define Max_M    1000
+#define Max_K    1000
+
+int N, M, K;
+int d[Max_N], c[Max_M];
+bool Conflict[Max_N][Max_N];
+
+int Population = 10;
+int Gen = 20;
+double MuRate = 0.1;
+
+double fitnessArr[100];
+int PopSlot[100][Max_N], PopRoom[100][Max_N];
+int NewSlot[100][Max_N], NewRoom[100][Max_N];
+int SolSlot[Max_N], SolRoom[Max_N];
+
+void Input() {
+    scanf("%d %d", &N, &M);
+    for (int i = 0; i < N; i++) scanf("%d", &d[i]);
+    for (int j = 0; j < M; j++) scanf("%d", &c[j]);
+    scanf("%d", &K);
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            Conflict[i][j] = false;
+    for (int k = 0; k < K; k++) {
+        int u, v;
+        scanf("%d %d", &u, &v);
+        Conflict[u-1][v-1] = Conflict[v-1][u-1] = true;
+    }
+}
+
+int penalty(const int slot[], const int room[]) {
+    int pen = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < i; j++) {
+            if (Conflict[i][j] && slot[i] == slot[j]) pen++;
+        }
+        if (d[i] > c[room[i]]) pen++;
+        for (int j = 0; j < i; j++) {
+            if (slot[i] == slot[j] && room[i] == room[j]) pen++;
+        }
+    }
+    return pen;
+}
+
+
+void init_pop() {
+    for (int p = 0; p < Population; p++) {
+        for (int i = 0; i < N; i++) {
+            PopSlot[p][i] = rand() % N;
+            PopRoom[p][i] = rand() % M;
+        }
+    }
+}
+
+// Đánh giá fitness
+void eval_pop() {
+    for (int p = 0; p < Population; p++) {
+        int pen = penalty(PopSlot[p], PopRoom[p]);
+        fitnessArr[p] = 1.0 / (1 + pen);
+    }
+}
+
+int select_parent() {
+    int a = rand() % Population;
+    int b = rand() % Population;
+    if (fitnessArr[a] > fitnessArr[b]) return a;
+    else return b;
+}
+
+
+void crossover(int p1, int p2, int c1, int c2) {
+    int cp = rand() % N;
+    for (int i = 0; i < N; i++) {
+        if (i < cp) {
+            NewSlot[c1][i] = PopSlot[p1][i];
+            NewSlot[c2][i] = PopSlot[p2][i];
+        } else {
+            NewSlot[c1][i] = PopSlot[p2][i];
+            NewSlot[c2][i] = PopSlot[p1][i];
+        }
+    }
+    
+    for (int k = 0; k < 2; k++) {
+        int tgt = (k == 0 ? c1 : c2);
+        bool used[Max_M][Max_N] = {false};
+        for (int i = 0; i < N; i++) {
+            int s = NewSlot[tgt][i];
+            NewRoom[tgt][i] = -1;
+            for (int r = 0; r < M; r++) {
+                if (!used[r][s] && c[r] >= d[i]) {
+                    used[r][s] = true;
+                    NewRoom[tgt][i] = r;
+                    break;
+                }
+            }
+            if (NewRoom[tgt][i] < 0) NewRoom[tgt][i] = rand() % M;
+        }
+    }
+}
+
+
+void mutate_ind(int p) {
+    for (int i = 0; i < N; i++) {
+        double r1 = rand() / (double)RAND_MAX;
+        if (r1 < MuRate) PopSlot[p][i] = rand() % N;
+        double r2 = rand() / (double)RAND_MAX;
+        if (r2 < MuRate) PopRoom[p][i] = rand() % M;
+    }
+}
+
+void Genetic() {
+    init_pop();
+    eval_pop();
+    for (int g = 0; g < Gen; g++) {
+        int best = 0;
+        for (int p = 1; p < Population; p++) {
+            if (fitnessArr[p] > fitnessArr[best]) best = p;
+        }
+        for (int i = 0; i < N; i++) {
+            NewSlot[0][i] = PopSlot[best][i];
+            NewRoom[0][i] = PopRoom[best][i];
+        }
+        int idx = 1;
+        while (idx < Population) {
+            int p1 = select_parent();
+            int p2 = select_parent();
+            crossover(p1, p2, idx, idx+1);
+            idx += 2;
+        }
+        for (int p = 0; p < Population; p++) {
+            for (int i = 0; i < N; i++) {
+                PopSlot[p][i] = NewSlot[p][i];
+                PopRoom[p][i] = NewRoom[p][i];
+            }
+        }
+        for (int p = 0; p < Population; p++) mutate_ind(p);
+        eval_pop();
+    }
+    int best = 0;
+    for (int p = 1; p < Population; p++)
+        if (fitnessArr[p] > fitnessArr[best]) best = p;
+    for (int i = 0; i < N; i++) {
+        SolSlot[i] = PopSlot[best][i] + 1;
+        SolRoom[i] = PopRoom[best][i] + 1;
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    Input();
+    Genetic();
+    for (int i = 0; i < N; i++) {
+        printf("%d %d %d\n", i+1, SolSlot[i], SolRoom[i]);
+    }
+    return 0;
+}

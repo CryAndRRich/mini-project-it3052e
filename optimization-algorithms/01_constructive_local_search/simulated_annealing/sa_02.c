@@ -1,14 +1,3 @@
-/*
-Một vài cải tiến so với mục 7. là:
-- Sau khi chạy Luyện Kim Mô Phỏng cho ra một kết quả tốt, chạy thêm một lần Tìm Kiếm Cục Bộ để đảm bảo có được kết quả ổn nhất
-- Dùng timestamp-based reset để tiết kiệm memset
-- Gắn static inline cho các hàm quan trọng để giảm overhead
-- Thay vì mỗi lần gọi hàm computeCost để tính thì track cost incremental
-=> Tiếp tục giảm phần lớn thời gian chạy của chương trình
-=> Tạo điều kiện để nới rộng khoảng của Luyện Kim Mô Phỏng (Tmin 0.01 -> 0.000001 và alpha 0.999 -> 0.999999) mà không bị giới hạn thời gian
-
-Điểm: 91 94 90 100 100
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -19,9 +8,10 @@ Một vài cải tiến so với mục 7. là:
 #define MAX_M 1000
 #define MAX_SLOT (MAX_N * 4)
 #define INF (MAX_SLOT + 1)
+#define W ((MAX_N + 63) / 64)
+
 #define RESTART_LIMIT 1000
 #define RANDOM_TRIALS 100
-#define W ((MAX_N + 63) / 64)
 
 int N, M, K;
 int d[MAX_N];

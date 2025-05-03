@@ -40,8 +40,8 @@ optimization-algorithms/
 ├── 04_swarm_intelligence/
 │   ├── ant_colony_optimization/     # Ant Colony Optimization: pheromone-guided tours
 │   │   |── aco.c
-|   |   └── dastur/
-│   │       └── dastur.c
+|   |   └── dsatur/
+│   │       └── dsatur.c
 │   └── artificial_bee_colony/       # Artificial Bee Colony: employed, onlooker, scout bees
 │       └── abc.c
 │

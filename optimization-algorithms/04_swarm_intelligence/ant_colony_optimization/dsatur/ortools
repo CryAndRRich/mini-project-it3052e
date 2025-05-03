@@ -48,8 +48,8 @@ def solve_timetabling(N, M, d, c, conflict_pairs):
 
 if __name__ == '__main__':
     N, M = map(int, input().split())
-    d = list(map(int, input().split()))  # sĩ số các lớp
-    c = list(map(int, input().split()))  # sức chứa các phòng
+    d = list(map(int, input().split()))  
+    c = list(map(int, input().split()))  
     K = int(input())
     pairs = []
     for _ in range(K):

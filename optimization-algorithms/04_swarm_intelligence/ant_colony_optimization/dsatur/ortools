@@ -2,22 +2,33 @@ from ortools.sat.python import cp_model
 
 def solve_timetabling(N, M, d, c, conflict_pairs):
     model = cp_model.CpModel()
+    # slots: assume Max_Slot = N for simplicity
     max_slots = N
+    # Variables
     slot = [model.NewIntVar(1, max_slots, f"slot_{i}") for i in range(N)]
     room = [model.NewIntVar(1, M, f"room_{i}") for i in range(N)]
+
+    # Conflict constraints: conflicting classes cannot share slot
     for i, j in conflict_pairs:
         model.Add(slot[i] != slot[j])
+
+    # Room capacity: room assigned must have c[room]>=d[i]
     for i in range(N):
+        # disallow rooms with insufficient capacity
         for r in range(1, M+1):
             if c[r-1] < d[i]:
                 model.Add(room[i] != r)
+
+    # No two classes in same slot and same room
     for i in range(N):
         for j in range(i+1, N):
+            # if same slot then different room
             b = model.NewBoolVar(f"same_slot_{i}_{j}")
             model.Add(slot[i] == slot[j]).OnlyEnforceIf(b)
             model.Add(slot[i] != slot[j]).OnlyEnforceIf(b.Not())
             model.Add(room[i] != room[j]).OnlyEnforceIf(b)
-    #objective
+
+    # Objective:
     max_slot_used = model.NewIntVar(1, max_slots, "max_slot_used")
     model.AddMaxEquality(max_slot_used, slot)
     model.Minimize(max_slot_used)
@@ -36,14 +47,14 @@ def solve_timetabling(N, M, d, c, conflict_pairs):
         return None, None
 
 if __name__ == '__main__':
-    import sys
-    data = sys.stdin.read().split()
-    it = iter(data)
-    N = int(next(it)); M = int(next(it))
-    d = [int(next(it)) for _ in range(N)]
-    c = [int(next(it)) for _ in range(M)]
-    K = int(next(it))
-    pairs = [(int(next(it))-1, int(next(it))-1) for _ in range(K)]
+    N, M = map(int, input().split())
+    d = list(map(int, input().split()))  # sĩ số các lớp
+    c = list(map(int, input().split()))  # sức chứa các phòng
+    K = int(input())
+    pairs = []
+    for _ in range(K):
+        u, v = map(int, input().split())
+        pairs.append((u-1, v-1))
     slots, rooms = solve_timetabling(N, M, d, c, pairs)
     if slots:
         for i in range(N):

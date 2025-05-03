@@ -17,7 +17,7 @@ def solve_timetabling(N, M, d, c, conflict_pairs):
             model.Add(slot[i] == slot[j]).OnlyEnforceIf(b)
             model.Add(slot[i] != slot[j]).OnlyEnforceIf(b.Not())
             model.Add(room[i] != room[j]).OnlyEnforceIf(b)
-  #objective
+    #objective
     max_slot_used = model.NewIntVar(1, max_slots, "max_slot_used")
     model.AddMaxEquality(max_slot_used, slot)
     model.Minimize(max_slot_used)

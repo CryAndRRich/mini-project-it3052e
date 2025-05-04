@@ -59,7 +59,6 @@ if __name__ == "__main__":
 
     if slots is not None:
         for i in range(N):
-            ans = max(ans, slots[i])
             print(i + 1, slots[i], rooms[i])
         print(max(slots))
     else:

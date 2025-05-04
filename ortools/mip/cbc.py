@@ -46,7 +46,6 @@ def solve_timetabling(N, M, d, c, conflict_pairs):
     status = solver.Solve()
 
     if status not in (pywraplp.Solver.OPTIMAL, pywraplp.Solver.FEASIBLE):
-        print("No solution found")
         return None, None
 
     slots = [None] * N
@@ -77,12 +76,10 @@ if __name__ == "__main__":
     t_end = time.time()
     elapsed = t_end - t_start
 
-    ans = 0
     if slots is not None:
         for i in range(N):
-            ans = max(ans, slots[i])
             print(i + 1, slots[i], rooms[i])
-        print(ans)
+        print(max(slots))
     else:
         print("No solution found")
         

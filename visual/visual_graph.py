@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 
 def plot_cp_mip_exact_sol(cp, mip, title):
     plt.figure(figsize=(10, 6))
-    plt.plot(cp, color="brown", label=f"CP", linestyle="-")
-    plt.plot(mip, color="blue", label=f"MIP", linestyle="-")
+    plt.plot(cp, color="blue", label=f"CP", linestyle="-")
+    plt.plot(mip, color="brown", label=f"MIP", linestyle="-")
 
     plt.xlabel("Test ID")
     if title == "cost":

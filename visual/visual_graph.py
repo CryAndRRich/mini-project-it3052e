@@ -13,7 +13,7 @@ def plot_cp_mip_exact_sol(cp, mip, title):
         plt.ylabel(f"Runtime (ms)")
         plt.title(f"Runtime (lower is better)")
     plt.legend()
-    plt.xticks(range(1, len(cp) + 1))
+    plt.xticks(range(0, len(cp)))
     plt.tight_layout()
     plt.show()
 
@@ -34,7 +34,7 @@ def plot_all_solutions(data, title):
         plt.ylabel(f"Runtime (ms)")
         plt.title(f"Runtime (lower is better)")
     plt.legend()
-    plt.xticks(range(1, len(data["CP"]) + 1, 5))
+    plt.xticks(range(0, len(data["CP"]), 5))
     plt.tight_layout()
     plt.show()
 

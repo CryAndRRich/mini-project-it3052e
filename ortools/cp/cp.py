@@ -1,5 +1,7 @@
 from ortools.sat.python import cp_model
 import time
+import numpy as np
+import gc
 
 def solve_timetabling(N, M, d, c, conflict_pairs):
     model = cp_model.CpModel()
@@ -38,30 +40,57 @@ def solve_timetabling(N, M, d, c, conflict_pairs):
     else:
         return None, None
 
-if __name__ == "__main__":
-    input_path = "test/type_2/test_21.txt"
-
+def read_input(input_path):
     with open(input_path, "r") as f:
         data = f.read().split()
     it = iter(data)
-
     N = int(next(it))
     M = int(next(it))
     d = [int(next(it)) for _ in range(N)]
     c = [int(next(it)) for _ in range(M)]
     K = int(next(it))
     pairs = [(int(next(it)) - 1, int(next(it)) - 1) for _ in range(K)]
+    return N, M, d, c, pairs
 
-    t_start = time.time()
-    slots, rooms = solve_timetabling(N, M, d, c, pairs)
-    t_end = time.time()
-    elapsed = t_end - t_start
+if __name__ == "__main__":
+    input_path = "/content/test_28.txt"
+    # Đọc input 
+    N, M, d, c, pairs = read_input(input_path)
 
+    # Số lần chạy để đo thời gian
+    NUM_RUNS = 10
+    WARMUP_RUNS = 2
+    times = []
+
+    # Warm-up runs 
+    print("Running warm-up...")
+    for _ in range(WARMUP_RUNS):
+        solve_timetabling(N, M, d, c, pairs)
+        gc.collect()  # Dọn dẹp bộ nhớ để giảm tác động của caching
+
+    # Đo thời gian cho các lần chạy 
+    print(f"Running {NUM_RUNS} iterations...")
+    for i in range(NUM_RUNS):
+        # Dọn dẹp bộ nhớ trước mỗi lần chạy
+        gc.collect()
+
+        # Đo thời gian
+        t_start = time.perf_counter()  
+        slots, rooms = solve_timetabling(N, M, d, c, pairs)
+        t_end = time.perf_counter()
+
+        elapsed = t_end - t_start
+        times.append(elapsed)
+        print(f"Run {i+1}: {elapsed:.8f} seconds")
+
+    # Thống kê
+    mean_time = np.mean(times)
+
+    print("\nThống kê thời gian chạy:")
+    print(f"Thời gian trung bình: {mean_time:.8f} giây")
     if slots is not None:
         for i in range(N):
             print(i + 1, slots[i], rooms[i])
-        print(max(slots))
+        print(f"Số slot tối đa: {max(slots)}")
     else:
         print("No solution found")
-
-    print(f"Runtime: {elapsed:.8f} seconds")

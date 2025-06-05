@@ -54,27 +54,21 @@ def read_input(input_path):
 
 if __name__ == "__main__":
     input_path = "/content/test_28.txt"
-    # Đọc input 
     N, M, d, c, pairs = read_input(input_path)
 
-    # Số lần chạy để đo thời gian
     NUM_RUNS = 10
     WARMUP_RUNS = 2
     times = []
 
-    # Warm-up runs 
     print("Running warm-up...")
     for _ in range(WARMUP_RUNS):
         solve_timetabling(N, M, d, c, pairs)
-        gc.collect()  # Dọn dẹp bộ nhớ để giảm tác động của caching
+        gc.collect()  
 
-    # Đo thời gian cho các lần chạy 
     print(f"Running {NUM_RUNS} iterations...")
     for i in range(NUM_RUNS):
-        # Dọn dẹp bộ nhớ trước mỗi lần chạy
         gc.collect()
 
-        # Đo thời gian
         t_start = time.perf_counter()  
         slots, rooms = solve_timetabling(N, M, d, c, pairs)
         t_end = time.perf_counter()
@@ -83,7 +77,6 @@ if __name__ == "__main__":
         times.append(elapsed)
         print(f"Run {i+1}: {elapsed:.8f} seconds")
 
-    # Thống kê
     mean_time = np.mean(times)
 
     print("\nThống kê thời gian chạy:")

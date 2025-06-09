@@ -1,4 +1,5 @@
 # test-case:
+```
 Input size (N, M, K)
 - 15 tests Type 1:  
 (5, 2, 4) (6, 2, 7) (7, 3, 10) (8, 3, 10) (9, 4, 12)  
@@ -15,7 +16,7 @@ Input size (N, M, K)
 
 - 03 test Type 4:  
 (1000, 20, 247448) (2000, 20, 823453) (3000, 20, 1010240)
-
+```
 # mini-project-it3052e
 ```
 optimization-algorithms/
@@ -41,13 +42,14 @@ optimization-algorithms/
 │   ├── ant_colony_optimization/     # Ant Colony Optimization: pheromone-guided tours
 │   │   |── aco.c
 |   |   └── dsatur/
-│   │       └── dsatur.c
+│   │   │   |── dsatur.c
+│   │   │   └── update_dsatur.c
 │   └── artificial_bee_colony/       # Artificial Bee Colony: employed, onlooker, scout bees
 │       └── abc.c
 │
-├── 05_other_metaheuristics/
-│   ├── harmony_search/              # Harmony Search: music-inspired pitch adjustment
-│   │   └── hs.c
-│   └── beam_search/                 # Beam Search: k-best breadth-first search
-│       └── bs.c
+└── 05_other_metaheuristics/
+    ├── harmony_search/              # Harmony Search: music-inspired pitch adjustment
+    │   └── hs.c
+    └── beam_search/                 # Beam Search: k-best breadth-first search
+        └── bs.c
 ```

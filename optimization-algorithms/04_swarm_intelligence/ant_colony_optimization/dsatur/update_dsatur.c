@@ -63,7 +63,6 @@ void BuildRoomListAndDegree() {
             }
         }
     }
-    // Sort classes by degree descending
     for (int i = 1; i < N; i++) {
         for (int j = i + 1; j <= N; j++) {
             if (Degree[Order[i]] < Degree[Order[j]]) {
